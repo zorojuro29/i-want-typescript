@@ -1,0 +1,26 @@
+name: Continuous integration
+run-name: ${{ github.actor }} is testing out continuous integration
+
+on: [push]
+
+jobs:
+    Continuous-integration-actions:
+        runs-on: ubuntu-latest
+        steps:
+            - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+            - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+            - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+            - name: Check out repository code
+              uses: actions/checkout@v4
+            - name: Setup Node.js
+              uses: actions/setup-node@v2
+            - name: Install dependencies
+              run: |
+                npm install
+            - name : Build the application
+              run: |
+                npm run build
+            - name: Run tests
+              run: |
+                npm test 
+             
