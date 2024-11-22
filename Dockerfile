@@ -36,7 +36,9 @@ COPY . .
 RUN npm run build
 
 FROM alpine:3.20 AS runner
-RUN apk add --no-cache nodejs
+RUN apk add --no-cache nodejs\
+&& addgroup -S nodegroup \
+&& adduser -S node -G nodegroup
 WORKDIR /app
 COPY --from=builder /app/prod_node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
